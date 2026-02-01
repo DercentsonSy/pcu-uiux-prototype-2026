@@ -68,15 +68,65 @@
       a: 'Late filings may incur penalties, possible revocation proceedings, and difficulty in securing clearances.'
     }
   ];
+
+  let searchQuery = '';
+  let isSearchFocused = false;
+
+  const navItems = [
+    { label: 'About', href: 'https://www.sec.gov.ph/about-us/' },
+    { label: 'Services', href: 'https://www.sec.gov.ph/services/' },
+    { label: 'Resources', href: 'https://www.sec.gov.ph/resources/' },
+    { label: 'News', href: 'https://www.sec.gov.ph/news/' },
+    { label: 'Contact', href: '#contact' }
+  ];
 </script>
 
 <div class="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100">
-  <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+  <header class="sticky top-0 z-30 bg-white shadow-sm">
+    <div class="border-b border-emerald-100 bg-gradient-to-r from-emerald-600 to-emerald-700">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2">
+        <nav class="hidden items-center gap-1 md:flex">
+          {#each navItems as item}
+            <a
+              href={item.href}
+              class="rounded px-3 py-1.5 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white"
+              target={item.href.startsWith('http') ? '_blank' : undefined}
+              rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+            >
+              {item.label}
+            </a>
+          {/each}
+        </nav>
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <input
+              type="search"
+              bind:value={searchQuery}
+              on:focus={() => isSearchFocused = true}
+              on:blur={() => isSearchFocused = false}
+              placeholder="Search requirements..."
+              class="w-48 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm text-white placeholder-white/60 backdrop-blur transition focus:w-64 focus:bg-white focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-white/50 lg:w-64"
+            />
+            <svg class="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 {isSearchFocused ? 'text-slate-400' : 'text-white/60'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <a
+            href="https://cifss-efile.sec.gov.ph/"
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-emerald-700 shadow-sm transition hover:bg-emerald-50"
+          >
+            eFAST Login
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
       <div class="flex items-center gap-3">
-        <div class="relative h-12 w-12 overflow-hidden rounded-full border border-slate-200 bg-white shadow-card">
-          <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-white to-brand-100"></div>
-          <div class="absolute inset-0 grid place-content-center font-display text-xs font-bold text-brand-700">SEC</div>
+        <div class="relative h-14 w-14 overflow-hidden rounded-full border-2 border-emerald-100 bg-white shadow-md">
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-emerald-100"></div>
+          <div class="absolute inset-0 grid place-content-center font-display text-sm font-bold text-emerald-700">SEC</div>
         </div>
         <div>
           <p class="text-xs uppercase tracking-[0.24em] text-slate-500">Primary License Filers</p>
@@ -86,7 +136,7 @@
       </div>
       <div class="hidden items-center gap-3 sm:flex">
         <a
-          class="rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-700 shadow-soft ring-1 ring-slate-200 hover:ring-brand-200"
+          class="rounded-full bg-white px-4 py-2 text-sm font-medium text-emerald-700 shadow-sm ring-1 ring-emerald-200 transition hover:bg-emerald-50 hover:ring-emerald-300"
           href="https://www.sec.gov.ph/"
           target="_blank"
           rel="noreferrer"
@@ -94,7 +144,7 @@
           SEC Home
         </a>
         <a
-          class="rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-brand-500"
+          class="rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700"
           href="#requirements"
         >
           View requirements
